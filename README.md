@@ -1,2 +1,2 @@
 # note-app
-I learned redux with this app. I just made dark theme for two pages of this app and it was enough to learn redux.
+I learned redux with this app. First I made this whole app and then I added dark theme for two pages of this app. I think it was enough to learn redux.
