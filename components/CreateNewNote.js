@@ -5,10 +5,14 @@ import * as ImagePicker from 'expo-image-picker';
 import Icon from 'react-native-vector-icons/Entypo';
 import IconTwo from 'react-native-vector-icons/MaterialIcons'
 
+import { useSelector } from 'react-redux';
+
 export default function CreateNewNote({ navigation }) {
 
     const [title, setTitle] = useState('')
     const [theNote, setTheNote] = useState('')
+
+    const state = useSelector(state => state)
 
     const [selectedImage, setSelectedImage] = useState(null);
 
@@ -30,16 +34,46 @@ export default function CreateNewNote({ navigation }) {
     };
 
 
+    const styles = StyleSheet.create({
+        noteHeader: {
+            paddingLeft: 30,
+            paddingRight: 30,
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            alignItems: 'center',
+            width: '100%',
+            height: '10%',
+            backgroundColor: state === "DARK_THEME" ? 'black' : 'white',
+        },
+        noteArea: {
+            flex: 1,
+            flexWrap: 'wrap',
+            marginVertical: '10%',
+            marginHorizontal: '7%',
+            textAlignVertical: 'top',
+            backgroundColor: state === "DARK_THEME" ? 'black' : 'white',
+            color: state === "DARK_THEME" ? 'white' : 'black'
+        },
+        thumbnail: {
+            width: 100,
+            height: 100,
+            resizeMode: "contain"
+        }
+    })
+
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+        <SafeAreaView style={{
+            flex: 1, backgroundColor: state === "DARK_THEME" ? 'black' : 'white'
+        }}>
             <View style={styles.noteHeader}>
 
-                <TextInput style={{ fontSize: 30, fontWeight: 'bold', color: 'darkblue' }} placeholder="Just Note It."
+                <TextInput style={{ fontSize: 28, fontWeight: 'bold', color: state === "DARK_THEME" ? 'white' : 'darkblue' }} placeholderTextColor={state === "DARK_THEME" ? 'white' : 'darkblue'} placeholder="Just Note It."
                     onChangeText={(title) => setTitle(title)}>{title}</TextInput>
 
                 <View style={{ display: 'flex', flexDirection: 'row' }}>
                     <TouchableOpacity onPress={openImagePickerAsync}>
-                        <Icon name="images" size={25} style={{ marginRight: 25, }} />
+                        <Icon name="images" size={25} style={{ marginRight: 25, color: state === "DARK_THEME" ? 'white' : 'darkblue' }} />
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => {
@@ -51,7 +85,7 @@ export default function CreateNewNote({ navigation }) {
                             })
                         }
                     }}>
-                        <IconTwo name="save-alt" size={25} />
+                        <IconTwo name="save-alt" size={25} color={state === "DARK_THEME" ? 'white' : 'darkblue'} />
                     </TouchableOpacity>
                 </View>
 
@@ -66,34 +100,7 @@ export default function CreateNewNote({ navigation }) {
                 </View> : null}
 
                 {theNote}
-
             </TextInput>
 
-        </SafeAreaView>)
+        </SafeAreaView >)
 }
-
-const styles = StyleSheet.create({
-    noteHeader: {
-        paddingLeft: 30,
-        paddingRight: 30,
-        display: 'flex',
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        alignItems: 'center',
-        width: '100%',
-        height: '10%',
-        backgroundColor: 'white',
-    },
-    noteArea: {
-        flex: 1,
-        flexWrap: 'wrap',
-        marginVertical: '10%',
-        marginHorizontal: '7%',
-        textAlignVertical: 'top',
-    },
-    thumbnail: {
-        width: 100,
-        height: 100,
-        resizeMode: "contain"
-    }
-})

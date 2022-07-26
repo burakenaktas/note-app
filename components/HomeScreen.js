@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import IconTwo from 'react-native-vector-icons/Ionicons';
 
 import Footer from './HomeScreenBottom'
+import Topic from './Topic'
 
 import { useSelector } from 'react-redux';
 
@@ -39,9 +40,7 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.topicContainer}>
         {topics.map((topic, id) => {
           return (
-            <TouchableOpacity style={{ flex: 1, }} key={id} onPress={() => navigation.navigate('NotePage', {
-              pageTitle: `${topic}`
-            })}><Text style={{ fontSize: 40, color: state === "DARK_THEME" ? 'white' : 'darkblue', fontWeight: 'bold' }}>{topic}</Text></TouchableOpacity>
+            <Topic key={id} navigation={navigation} topic={topic} />
           )
         })}
       </View>
